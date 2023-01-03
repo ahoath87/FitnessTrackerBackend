@@ -12,10 +12,11 @@ async function createUser({ username, password }) {
     INSERT INTO users(username, password)
     VALUES ($1, $2)
     ON CONFLICT (username) DO NOTHING
-    RETURNING username;
+    RETURNING *;
     `,
       [username, password]
     );
+    delete user.password;
     return user;
   } catch (error) {
     throw error;
@@ -31,7 +32,6 @@ async function getUser({ username, password }) {
 
     if (password === user.password) {
       delete user.password;
-      console.log("user", user);
       return user;
     }
   } catch (error) {
@@ -39,7 +39,25 @@ async function getUser({ username, password }) {
   }
 }
 
-async function getUserById(userId) {}
+async function getUserById(userId) {
+  try {
+    console.log("this is userId", userId);
+    const { rows: [user] } = await client.query(`
+    SELECT * FROM users
+    WHERE id = ${userId};
+    `);
+
+    
+    // if (!user) {
+    //   return null;
+    // }
+    console.log("this is user", user);
+    delete user.password;
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
 
 async function getUserByUsername(username) {
   try {
