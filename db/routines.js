@@ -48,9 +48,29 @@ async function getAllPublicRoutines() {
   }
 }
 
-async function getAllRoutinesByUser({ username }) {}
+async function getAllRoutinesByUser({ username }) {
+  try {
+    const returnedRoutines = await getAllRoutines();
+    const userRoutines = returnedRoutines.filter(
+      (routine) => routine.creatorName === username
+    );
+    return attachActivitiesToRoutines(userRoutines);
+  } catch (error) {
+    throw error;
+  }
+}
 
-async function getPublicRoutinesByUser({ username }) {}
+async function getPublicRoutinesByUser({ username }) {
+  try {
+    const returnedRoutines = await getAllPublicRoutines();
+    const publicUserRoutines = returnedRoutines.filter(
+      (routine) => routine.creatorName === username
+    );
+    return attachActivitiesToRoutines(publicUserRoutines);
+  } catch (error) {
+    throw error;
+  }
+}
 
 async function getPublicRoutinesByActivity({ id }) {}
 
