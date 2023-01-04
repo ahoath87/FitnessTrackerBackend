@@ -1,12 +1,16 @@
 // require in the database adapter functions as you write them (createUser, createActivity...)
 const { createUser, getUserByUsername, getUser } = require("./users");
 const { createActivity } = require("./activities")
+const {createRoutine} = require("./routines")
+const {addActivityToRoutine} = require("./routine_activities")
 const client = require("./client");
 
 async function dropTables() {
   try {
     console.log("Dropping All Tables...");
     await client.query(`
+    DROP TABLE IF EXISTS routine_activities;
+    DROP TABLE IF EXISTS routines;
     DROP TABLE IF EXISTS users;
     DROP TABLE IF EXISTS activities;
     `);
@@ -34,6 +38,22 @@ async function createTables() {
       description TEXT NOT NULL
     );
 
+    CREATE TABLE routines (
+      id SERIAL PRIMARY KEY,
+      "creatorId" INTEGER REFERENCES users(Id),
+      "isPublic" BOOLEAN DEFAULT false,
+      name VARCHAR(255) UNIQUE NOT NULL,
+      goal TEXT NOT NULL
+    );
+
+    CREATE TABLE routine_activities (
+      id SERIAL PRIMARY KEY,
+      "routineId" INTEGER REFERENCES routines(id),
+      "activityId" INTEGER REFERENCES activities(id),
+      duration INTEGER,
+      count INTEGER,
+      UNIQUE("routineId", "activityId")
+    );
 
     `);
     console.log("Finished creating tables");
