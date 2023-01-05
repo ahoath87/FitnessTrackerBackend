@@ -19,9 +19,31 @@ async function createRoutine({ creatorId, isPublic, name, goal }) {
   }
 }
 
-async function getRoutineById(id) {}
+async function getRoutineById(id) {
+  try {
+    const { rows: routines } = await client.query(
+      `
+    SELECT * FROM routines
+    WHERE id = $1
+    `,
+      [id]
+    );
+    return routines;
+  } catch (error) {
+    throw error;
+  }
+}
 
-async function getRoutinesWithoutActivities() {}
+async function getRoutinesWithoutActivities() {
+  try {
+    const { rows: routines } = await client.query(`
+    SELECT * FROM routines
+    `);
+    return routines;
+  } catch (error) {
+    throw error;
+  }
+}
 
 async function getAllRoutines() {
   try {
@@ -118,45 +140,49 @@ async function getPublicRoutinesByUser({ username }) {
   }
 }
 
-// async function getPublicRoutinesByActivity({ id }) {
-//   console.log("this is id", id);
-//   const activity = await getActivityById(id);
-//   const routinesToReturn = [...routines];
-//   console.log("this is activity", activity);
-//   try {
-//     const publicRoutines = await getAllPublicRoutines();
-
-//     const publicRoutinesByActivity = publicRoutines.filter(
-//       (routine) => routine.activities == activity.name
-//     );
-
-//     console.log("this is public routinesby actibity", publicRoutines);
-//     return publicRoutinesByActivity;
-//   } catch (error) {
-//     throw error;
-//   }
-// }
-// you are going to do two joins in teh same query and you ahve to in order to get what you need.
-
 async function getPublicRoutinesByActivity({ id }) {
   try {
     const { rows: routines } = await client.query(
       `
-      SELECT routines.*, users.username AS "creatorName", routine_activities."activityId"
+      SELECT routines.*, users.username AS "creatorName", activities.id
       FROM routines
       JOIN users ON routines."creatorId" = users.id 
-      JOIN routine_activities ON routines.id = "activityId"
-      WHERE "activityId" = $1 AND routines."creatorId" = users.id AND routines."isPublic" = true
+      JOIN activities ON activities.id  = routines.id   
+      WHERE routines.id  = $1 AND routines."creatorId" = users.id AND routines."isPublic" = true
     `,
       [id]
     );
+
+    console.log("this is routines.id", routines);
     return attachActivitiesToRoutines(routines);
   } catch (error) {
     throw error;
   }
 }
 
-async function updateRoutine({ id, ...fields }) {}
+async function updateRoutine({ id, ...fields }) {
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(", ");
+  try {
+    if (setString.length > 0) {
+      const {
+        rows: [routine],
+      } = await client.query(
+        `
+      UPDATE routines
+      SET ${setString}
+      WHERE id=${id}
+      RETURNING *;
+      `,
+        Object.values(fields)
+      );
+      return routine;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
 
 async function destroyRoutine(id) {}
 
