@@ -41,7 +41,6 @@ async function getUser({ username, password }) {
 
 async function getUserById(userId) {
   try {
-    console.log("this is userId", userId);
     const {
       rows: [user],
     } = await client.query(`
@@ -49,10 +48,6 @@ async function getUserById(userId) {
     WHERE id = ${userId};
     `);
 
-    // if (!user) {
-    //   return null;
-    // }
-    console.log("this is user", user);
     delete user.password;
     return user;
   } catch (error) {

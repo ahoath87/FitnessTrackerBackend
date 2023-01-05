@@ -44,11 +44,13 @@ async function getRoutineActivityById(id) {
 async function getRoutineActivitiesByRoutine({ id }) {
   try {
     const {
-      rows: [routineActivity],
+      rows
     } = await client.query(`
-  SELECT * FROM routine_activities
-  WHERE 
-  `);
+  SELECT *
+  FROM routine_activities
+  WHERE "routineId" = $1
+  `, [id]);
+  return rows;
   } catch (error) {
     throw error;
   }

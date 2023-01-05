@@ -66,7 +66,7 @@ describe("DB Routine Activities", () => {
   });
 
   describe("getRoutineActivitiesByRoutine", () => {
-    xit("should return the routine activities for a routine", async () => {
+    it("should return the routine activities for a routine", async () => {
       const fakeUser = await createFakeUser("Timmy");
       const fakeActivity = await createFakeActivity(
         "Fortnite",
@@ -84,6 +84,7 @@ describe("DB Routine Activities", () => {
       const [routineActivity] = await getRoutineActivitiesByRoutine(
         fakeRoutine
       );
+      console.log("this is routineActivity.id", routineActivity.id);
       expect(routineActivity.id).toEqual(fakeRoutineActivity.id);
     });
   });
