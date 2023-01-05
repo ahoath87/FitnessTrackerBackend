@@ -16,7 +16,9 @@ async function createUser({ username, password }) {
     `,
       [username, password]
     );
+
     delete user.password;
+
     return user;
   } catch (error) {
     throw error;
