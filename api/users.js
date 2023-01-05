@@ -55,29 +55,29 @@ router.post("/register", async (req, res, next) => {
   }
 });
 
-// POST /api/users/login
+POST / api / users / login;
 
-// router.post("/login", async (req, res, next) => {
-//   const { username, password } = req.body;
-//   try {
-//     const user = await getUserByUsername(username);
-//     const token = jwt.sign(
-//       { id: user.id, username: user.username },
-//       process.env.JWT_SECRET
-//     );
-//     if (user && user.password == password) {
-//       res.send({ user: user, message: "you are logged in", token: token });
-//     } else {
-//       res.send({
-//         name: "IncorrectCredentialsError",
-//         message: "Username or password is incorrect",
-//       });
-//     }
-//   } catch (error) {
-//     console.log(error);
-//     next(error);
-//   }
-// });
+router.post("/login", async (req, res, next) => {
+  const { username, password } = req.body;
+  try {
+    const user = await getUserByUsername(username);
+    const token = jwt.sign(
+      { id: user.id, username: user.username },
+      process.env.JWT_SECRET
+    );
+    if (user && user.password == password) {
+      res.send({ user: user, message: "you are logged in", token: token });
+    } else {
+      res.send({
+        name: "IncorrectCredentialsError",
+        message: "Username or password is incorrect",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
 
 // GET /api/users/me
 

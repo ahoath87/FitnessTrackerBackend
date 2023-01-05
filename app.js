@@ -23,11 +23,12 @@ app.use((req, res, next) => {
   console.log("<-----Body Logger End");
 });
 
-// app.use((error, req, res, next) => {
-//   res.send({
-//     name: error.name,
-//     message: error.message,
-//   });
-// });
+app.use((error, req, res, next) => {
+  res.send({
+    error: error.message,
+    name: error.name,
+    message: error.message,
+  });
+});
 
 module.exports = app;
