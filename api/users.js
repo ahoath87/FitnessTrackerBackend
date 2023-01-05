@@ -13,15 +13,15 @@ router.post('/register', async (req, res, next) => {
         const _user = await getUserByUsername(username);
         if (_user) {
             res.send({
-                error: "",
+                error: "Error",
                 message: `User ${_user.username} is already taken.`,
-                name: "",
+                name: "UsernameTaken",
             })
         }
 
         if(password.length < 8 ) {
             res.send({
-                error: "",
+                error: "Error",
                 message: "Password Too Short!",
                 name: "InsufficientPassword",
             });
