@@ -112,7 +112,6 @@ async function canEditRoutineActivity(routineActivityId, userId) {
     `,
       [userId, routineActivityId]
     );
-    console.log("editableRoutineActivity", editableRoutineActivity);
     return editableRoutineActivity;
   } catch (error) {
     throw error;
