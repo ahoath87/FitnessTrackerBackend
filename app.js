@@ -24,12 +24,11 @@ app.use((req, res, next) => {
 });
 
 app.get("*", (req, res) => {
-  res
-    .status(404)
-    next({
-      name: "404 - Not Found",
-      message: "No route found for the requested URL",
-    });
+  res.status(404);
+  next({
+    name: "404 - Not Found",
+    message: "No route found for the requested URL",
+  });
 });
 
 app.use((error, req, res, next) => {

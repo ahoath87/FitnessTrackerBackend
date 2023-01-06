@@ -90,7 +90,7 @@ async function getAllRoutinesByUser({ username }) {
 }
 
 async function getPublicRoutinesByUser({ username }) {
-  console.log("this is username inside of getpublicroutinesbyuser", username)
+  console.log("this is username inside of getpublicroutinesbyuser", username);
   try {
     const { rows: routines } = await client.query(
       `
@@ -119,7 +119,7 @@ async function getPublicRoutinesByActivity({ id }) {
     `,
       [id]
     );
-    
+
     return attachActivitiesToRoutines(routines);
   } catch (error) {
     throw error;
@@ -152,16 +152,24 @@ async function updateRoutine({ id, ...fields }) {
 
 async function destroyRoutine(id) {
   try {
-    await client.query(`
+    await client.query(
+      `
     DELETE FROM routine_activities
     WHERE "routineId" = $1;
-    `, [id]);
+    `,
+      [id]
+    );
 
-    const { rows: [routine] } = await client.query(`
+    const {
+      rows: [routine],
+    } = await client.query(
+      `
     DELETE FROM routines
     WHERE id = $1
     RETURNING *;
-    `, [id]);
+    `,
+      [id]
+    );
 
     return routine;
   } catch (error) {
