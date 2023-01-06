@@ -58,17 +58,6 @@ async function getAllRoutines() {
   }
 }
 
-// async function getAllPublicRoutines() {
-//   try {
-//     const returnedRoutines = await getAllRoutines();
-//     const publicRoutines = returnedRoutines.filter(
-//       (routine) => routine.isPublic === true
-//     );
-//     return attachActivitiesToRoutines(publicRoutines);
-//   } catch (error) {
-//     throw error;
-//   }
-// }
 async function getAllPublicRoutines() {
   try {
     const { rows: routines } = await client.query(`
@@ -83,17 +72,6 @@ async function getAllPublicRoutines() {
   }
 }
 
-// async function getAllRoutinesByUser({ username }) {
-//   try {
-//     const returnedRoutines = await getAllRoutines();
-//     const userRoutines = returnedRoutines.filter(
-//       (routine) => routine.creatorName === username
-//     );
-//     return attachActivitiesToRoutines(userRoutines);
-//   } catch (error) {
-//     throw error;
-//   }
-// }
 async function getAllRoutinesByUser({ username }) {
   try {
     const { rows: routines } = await client.query(
@@ -111,19 +89,8 @@ async function getAllRoutinesByUser({ username }) {
   }
 }
 
-// async function getPublicRoutinesByUser({ username }) {
-//   try {
-//     const returnedRoutines = await getAllPublicRoutines();
-//     const publicUserRoutines = returnedRoutines.filter(
-//       (routine) => routine.creatorName === username
-//     );
-//     return attachActivitiesToRoutines(publicUserRoutines);
-//   } catch (error) {
-//     throw error;
-//   }
-// }
-
 async function getPublicRoutinesByUser({ username }) {
+  console.log("this is username inside of getpublicroutinesbyuser", username)
   try {
     const { rows: routines } = await client.query(
       `

@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-catch */
 const express = require("express");
-const { getUserByUsername, createUser } = require("../db");
+const { getUserByUsername, createUser, getPublicRoutinesByUser, getAllRoutinesByUser } = require("../db");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 
@@ -10,9 +10,8 @@ router.post("/register", async (req, res, next) => {
 
   try {
     const _user = await getUserByUsername(username);
-    // console.log("this is underscore user", _user);
     if (_user) {
-      res.send({
+      next({
         error: "Error",
         message: `User ${_user.username} is already taken.`,
         name: "UsernameTaken",
@@ -20,7 +19,7 @@ router.post("/register", async (req, res, next) => {
     }
 
     if (password.length < 8) {
-      res.send({
+      next({
         error: "Error",
         message: "Password Too Short!",
         name: "InsufficientPassword",
@@ -43,7 +42,6 @@ router.post("/register", async (req, res, next) => {
         expiresIn: "1W",
       }
     );
-    console.log("this is user", user);
     res.send({
       message: "thank you for signing up",
       token: token,
@@ -55,7 +53,7 @@ router.post("/register", async (req, res, next) => {
   }
 });
 
-POST / api / users / login;
+// POST / api / users / login;
 
 router.post("/login", async (req, res, next) => {
   const { username, password } = req.body;
@@ -68,19 +66,59 @@ router.post("/login", async (req, res, next) => {
     if (user && user.password == password) {
       res.send({ user: user, message: "you are logged in", token: token });
     } else {
-      res.send({
+      next({
         name: "IncorrectCredentialsError",
         message: "Username or password is incorrect",
       });
     }
   } catch (error) {
-    console.log(error);
     next(error);
   }
 });
 
 // GET /api/users/me
+router.get("/me", async (req, res, next) => {
+  try {
+    const user = await req.user;
+    if (!user) {
+      res.status(401);
+      res.send({
+        error: "",
+        message: "You must be logged in to perform this action",
+        name: ""
+      })
+    } 
+    res.send (
+      user
+      )
+  } catch (error) {
+    next(error);
+  }
+})
 
 // GET /api/users/:username/routines
+router.get("/:username/routines", async (req, res, next) => {
+  try {
+    const {username} = req.params
+    const user = await req.user
+    if (!user) {
+      res.status(401);
+      next({
+        error: "",
+        message: "",
+        name: ""
+      })
+    } 
+    const username = user.username
+    const publicRoutines = await getPublicRoutinesByUser({username});
+    //const allRoutines = await getAllRoutinesByUser({username});
+    console.log("this is publicRoutines", publicRoutines)
+    res.send (
+      publicRoutines,
+      )
+  } catch (error) {
+    next(error);
+  }
+})
 
 module.exports = router;

@@ -12,12 +12,10 @@ async function createUser({ username, password }) {
     INSERT INTO users(username, password)
     VALUES ($1, $2)
     ON CONFLICT (username) DO NOTHING
-    RETURNING *;
+    RETURNING username, id;
     `,
       [username, password]
     );
-
-    delete user.password;
 
     return user;
   } catch (error) {
