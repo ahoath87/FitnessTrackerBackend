@@ -1,5 +1,14 @@
 const express = require("express");
-const { getAllPublicRoutines } = require("../db");
+const {
+  getAllPublicRoutines,
+  createRoutine,
+  getRoutineById,
+  updateRoutine,
+  destroyRoutine,
+  getAllRoutinesByUser,
+} = require("../db");
+const { post } = require("./users");
+const { requireUser } = require("./utils");
 const router = express.Router();
 
 // GET /api/routines
@@ -15,9 +24,87 @@ router.get("/", async (req, res, next) => {
 
 // POST /api/routines
 
+router.post("/", requireUser, async (req, res, next) => {
+  const { creatorId, name, goal, isPublic } = req.body;
+  try {
+    // console.log("this is req.user.id", req.user.id);
+    if (req.user) {
+      req.body.creatorId = req.user.id;
+    }
+    const newRoutine = await createRoutine(req.body);
+    res.send(newRoutine);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // PATCH /api/routines/:routineId
+router.patch("/:routineId", requireUser, async (req, res, next) => {
+  const { isPublic, name, goal } = req.body;
+  const id = req.params.routineId;
+  console.log("REQ PARAMS", req.params);
+
+  try {
+    const [originalRoutine] = await getRoutineById(id);
+
+    console.log("ORIGINAL ROUTINE", originalRoutine);
+
+    if (!originalRoutine) {
+      next({
+        error: "error",
+        name: "NoRoutineFoundError",
+        message: `Routine ${id} not found`,
+      });
+    } else if (req.user && originalRoutine.creatorId != req.user.id) {
+      console.log("this is money money", originalRoutine.id);
+      //   console.log("this is more money", req.user.id);
+      next(
+        res.status(403).send({
+          error: "",
+          message: `User ${req.user.username} is not allowed to update Every day`,
+          name: "",
+        })
+      );
+    } else {
+      const updatedRoutine = await updateRoutine({
+        id,
+        // creatorId,
+        isPublic,
+        name,
+        goal,
+      });
+      console.log("UPDATED ROUTINE", updatedRoutine);
+      res.send(updatedRoutine);
+    }
+  } catch (error) {
+    next(error);
+  }
+});
 
 // DELETE /api/routines/:routineId
+router.delete("/:routineId", requireUser, async (req, res, next) => {
+  const id = req.params.routineId;
+  try {
+    const [routineToDelete] = await getRoutineById(id);
+    console.log("this is req.params.routineId", req.params.routineId);
+    console.log("this is routineTODelete", routineToDelete.id);
+    // const findRoutines = await getRoutineById(id);
+    if (req.user && req.user.routineId != routineToDelete.id) {
+      next(
+        res.status(403).send({
+          error: "",
+          message: `User ${req.user.username} is not allowed to delete On even days`,
+          name: "",
+        })
+      );
+    }
+    const deletedRoutine = await destroyRoutine(req.params.routineId);
+    console.log("this is deleted Routine", deletedRoutine);
+    res.send(deletedRoutine);
+  } catch (error) {
+    next(error);
+  }
+});
 
 // POST /api/routines/:routineId/activities
 
