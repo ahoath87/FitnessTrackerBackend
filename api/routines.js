@@ -45,7 +45,7 @@ router.patch("/:routineId", requireUser, async (req, res, next) => {
   console.log("REQ PARAMS", req.params);
 
   try {
-    const [originalRoutine] = await getRoutineById(id);
+    const originalRoutine = await getRoutineById(id);
 
     console.log("ORIGINAL ROUTINE", originalRoutine);
 
@@ -68,7 +68,6 @@ router.patch("/:routineId", requireUser, async (req, res, next) => {
     } else {
       const updatedRoutine = await updateRoutine({
         id,
-        // creatorId,
         isPublic,
         name,
         goal,
@@ -85,11 +84,14 @@ router.patch("/:routineId", requireUser, async (req, res, next) => {
 router.delete("/:routineId", requireUser, async (req, res, next) => {
   const id = req.params.routineId;
   try {
-    const [routineToDelete] = await getRoutineById(id);
-    console.log("this is req.params.routineId", req.params.routineId);
-    console.log("this is routineTODelete", routineToDelete.id);
+    const routineToDelete = await getRoutineById(id);
+    // console.log("this is req.params.routineId", req.params.routineId);
+     console.log("this is routineTODelete", routineToDelete);
     // const findRoutines = await getRoutineById(id);
-    if (req.user && req.user.routineId != routineToDelete.id) {
+    if (routineToDelete && routineToDelete.creatorId === req.user.id) {
+      const deletedRoutine = await destroyRoutine(id);
+      res.send(deletedRoutine);
+    } else {
       next(
         res.status(403).send({
           error: "",
@@ -98,9 +100,6 @@ router.delete("/:routineId", requireUser, async (req, res, next) => {
         })
       );
     }
-    const deletedRoutine = await destroyRoutine(req.params.routineId);
-    console.log("this is deleted Routine", deletedRoutine);
-    res.send(deletedRoutine);
   } catch (error) {
     next(error);
   }
