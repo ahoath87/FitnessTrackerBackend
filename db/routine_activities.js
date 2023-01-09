@@ -42,6 +42,7 @@ async function getRoutineActivityById(id) {
 }
 
 async function getRoutineActivitiesByRoutine({ id }) {
+  console.log("this is id from db", id);
   try {
     const { rows } = await client.query(
       `
