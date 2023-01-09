@@ -35,6 +35,7 @@ async function getRoutineActivityById(id) {
     `,
       [id]
     );
+    console.log("this is routineAcivity", routineActivity);
     return routineActivity;
   } catch (error) {
     throw error;
@@ -52,6 +53,7 @@ async function getRoutineActivitiesByRoutine({ id }) {
   `,
       [id]
     );
+    console.log("this is ROWS", rows);
     return rows;
   } catch (error) {
     throw error;

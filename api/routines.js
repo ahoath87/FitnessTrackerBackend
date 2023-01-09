@@ -89,7 +89,7 @@ router.delete("/:routineId", requireUser, async (req, res, next) => {
   try {
     const routineToDelete = await getRoutineById(id);
     // console.log("this is req.params.routineId", req.params.routineId);
-     console.log("this is routineTODelete", routineToDelete);
+    console.log("this is routineTODelete", routineToDelete);
     // const findRoutines = await getRoutineById(id);
     if (routineToDelete && routineToDelete.creatorId === req.user.id) {
       const deletedRoutine = await destroyRoutine(id);
@@ -110,30 +110,36 @@ router.delete("/:routineId", requireUser, async (req, res, next) => {
 
 // POST /api/routines/:routineId/activities
 router.post("/:routineId/activities", requireUser, async (req, res, next) => {
+  // const activity = await getActivityById(activityId);
   const routineId = req.params.routineId;
-  const { activityId, count, duration} = req.body;
+  console.log("this is req.params.routineID", req.params.routineId);
+  const activities = await getRoutineActivitiesByRoutine({ id: routineId });
+  const { activityId, count, duration } = req.body;
   const routine = await getRoutineById(routineId);
-  const activity = await getActivityById(activityId);
   try {
-    const activities = await getRoutineActivitiesByRoutine(req.params.routineId);
-    console.log("this is activities", activities)
-    const [filteredActivities] = activities.filter(
+    console.log("this is activities", activities);
+    const filteredActivities = activities.filter(
       (activity) => activity.id === activityId
     );
     console.log("this is filteredActivities", filteredActivities);
-    if (routine.id === routineId && filteredActivities.id === activityId) {
+    if (filteredActivities && filteredActivities.length) {
       next({
         error: "",
         message: `Activity ID ${activityId} already exists in Routine ID ${routineId}`,
-        name: ""
-      })
+        name: "",
+      });
     } else if (req.user) {
-      const routineWithActivity = await addActivityToRoutine({routineId, activityId, count,  duration});
+      const routineWithActivity = await addActivityToRoutine({
+        routineId,
+        activityId,
+        count,
+        duration,
+      });
       res.send(routineWithActivity);
     }
   } catch (error) {
     next(error);
   }
-})
+});
 
 module.exports = router;
