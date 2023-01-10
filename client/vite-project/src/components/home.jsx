@@ -8,8 +8,7 @@ const Home = () => {
       <div id="login-button">
         <p> Login Here!</p>
         <button>
-          Login
-          {/* <Link to="/login"></Link> */}
+          <Link to="/login">Login</Link>
         </button>
       </div>
       <div id="register-button">
