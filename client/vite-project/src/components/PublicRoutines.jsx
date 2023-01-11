@@ -3,12 +3,12 @@ import React from "react";
 const PublicRoutines = ({ routines }) => {
   return (
     <div id="public-routines">
-      <h2>Routines</h2>
+      <h2 id="routinelabel">Routines</h2>
       <div id="routines">
         {routines.map((routine) => {
           return (
             <div key={routine.id}>
-              <p>Name: {routine.name}</p>
+              <p id="name-publicroutines">Name: {routine.name}</p>
               <p>Goal: {routine.goal}</p>
               <p>Author: {routine.creatorName}</p>
 

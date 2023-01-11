@@ -10,7 +10,7 @@ const Nav = ({ user }) => {
   return (
     <header id="navbar">
       <h1>Fitness Tracker</h1>
-      <div>Logged In: {user?.username} </div>
+      <div id="loggedin-nav">Logged In: {user?.username} </div>
       <div id="links">
         <div id="Home-link">
           <Link to="/">Home</Link>
@@ -21,16 +21,18 @@ const Nav = ({ user }) => {
         <div id="Login-link">
           <Link to="/login">Login</Link>
         </div>
-        <div>
+        <div id="routines-link">
           <Link to="/routines">Routines</Link>
         </div>
-        <div>
+        <div id="myroutines-link">
           <Link to="/myroutines">My Routines</Link>
         </div>
-        <div>
+        <div id="activities-link">
           <Link to="/activities">My Activities</Link>
         </div>
-        <button onClick={logout}>Log Out</button>
+        <button id="log-out" onClick={logout}>
+          Log Out
+        </button>
       </div>
     </header>
   );
