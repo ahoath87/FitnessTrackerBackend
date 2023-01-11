@@ -4,3 +4,4 @@ export { default as Login } from "./login";
 export { default as Nav } from "./nav";
 export { default as PublicRoutines } from "./PublicRoutines";
 export { default as MyRoutines } from "./MyRoutines";
+export { default as RoutineForm } from "./RoutinesForm";

@@ -7,6 +7,7 @@ import {
   Nav,
   PublicRoutines,
   MyRoutines,
+  RoutineForm,
 } from "./components/index";
 import { Route, Routes } from "react-router-dom";
 import { publicRoutines } from "./api/Fetch";
@@ -53,6 +54,16 @@ function App() {
           <Route
             path="/myroutines"
             element={<MyRoutines token={token} user={user} />}
+          ></Route>
+          <Route
+            path="/routineForm"
+            element={
+              <RoutineForm
+                setRoutines={setRoutines}
+                routine={routines}
+                token={token}
+              />
+            }
           ></Route>
         </Routes>
       </div>
