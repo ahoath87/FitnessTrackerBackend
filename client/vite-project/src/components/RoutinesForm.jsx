@@ -5,7 +5,6 @@ const RoutineForm = ({ token, setRoutines, routines }) => {
   const [name, setName] = useState("");
   const [goal, setGoal] = useState("");
   const [isPublic, setIsPublic] = useState(false);
-
   const submitHandler = async (e) => {
     try {
       e.preventDefault();

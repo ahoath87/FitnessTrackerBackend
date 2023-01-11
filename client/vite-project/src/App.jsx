@@ -10,16 +10,21 @@ import {
   RoutineForm,
 } from "./components/index";
 import { Route, Routes } from "react-router-dom";
-import { publicRoutines } from "./api/Fetch";
+import { publicRoutines, myRoutines, fetchDeleteRoutine } from "./api/Fetch";
 import { fetchMe } from "./api/auth";
-import { myRoutines } from "./api/Fetch";
+import UpdateRoutine from "./components/UpdateRoutine";
+
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [routines, setRoutines] = useState([]);
   const [user, setUser] = useState({});
   const [myroutines, setMyRoutines] = useState([]);
+  const [routineToEdit, setRoutineToEdit] = useState({});
+  const [routineToDelete, setRoutineToDelete] = useState({});
+
   const username = user.username;
+console.log("this is routineToDelete", routineToDelete);
   useEffect(() => {
     const routines = async () => {
       const allroutines = await publicRoutines();
@@ -48,6 +53,19 @@ function App() {
     }
   }, [user.username]);
 
+  useEffect(() =>{
+    const getNotDeletedRoutines = async () => {
+      await fetchDeleteRoutine(token, routineToDelete);
+      const redirMyRoutines = () => {
+        window.location.href = '/myroutines'
+    };
+    redirMyRoutines();
+    }
+    if(routineToDelete.id) {
+      getNotDeletedRoutines();
+    }
+  }, [routineToDelete])
+
   return (
     <div>
       <Nav user={user}></Nav>
@@ -65,8 +83,12 @@ function App() {
           ></Route>
           <Route
             path="/myroutines"
-            element={<MyRoutines token={token} user={user} setRoutines={setRoutines} routines={routines} myroutines={myroutines} />}
+            element={<MyRoutines setRoutineToDelete={setRoutineToDelete} token={token} user={user} setRoutines={setRoutines} routines={routines} myroutines={myroutines} setRoutineToEdit={setRoutineToEdit} />}
           ></Route>
+          <Route 
+          path="/updateroutine" 
+          element={<UpdateRoutine myroutines={myroutines} routines={routines} routineToEdit={routineToEdit} token={token} setRoutines={setRoutines} setMyRoutines={setMyRoutines} />}>
+          </Route>
         </Routes>
       </div>
     </div>
