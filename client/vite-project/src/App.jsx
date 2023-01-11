@@ -14,7 +14,6 @@ import { publicRoutines, myRoutines, fetchDeleteRoutine } from "./api/Fetch";
 import { fetchMe } from "./api/auth";
 import UpdateRoutine from "./components/UpdateRoutine";
 
-
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [routines, setRoutines] = useState([]);
@@ -24,7 +23,7 @@ function App() {
   const [routineToDelete, setRoutineToDelete] = useState({});
 
   const username = user.username;
-console.log("this is routineToDelete", routineToDelete);
+  console.log("this is routineToDelete", routineToDelete);
   useEffect(() => {
     const routines = async () => {
       const allroutines = await publicRoutines();
@@ -48,23 +47,23 @@ console.log("this is routineToDelete", routineToDelete);
       const allMyRoutines = await myRoutines(token, username);
       setMyRoutines(allMyRoutines);
     };
-    if(user.username) {
+    if (user.username) {
       getRoutines();
     }
   }, [user.username]);
 
-  useEffect(() =>{
+  useEffect(() => {
     const getNotDeletedRoutines = async () => {
       await fetchDeleteRoutine(token, routineToDelete);
       const redirMyRoutines = () => {
-        window.location.href = '/myroutines'
+        window.location.href = "/myroutines";
+      };
+      redirMyRoutines();
     };
-    redirMyRoutines();
-    }
-    if(routineToDelete.id) {
+    if (routineToDelete.id) {
       getNotDeletedRoutines();
     }
-  }, [routineToDelete])
+  }, [routineToDelete]);
 
   return (
     <div>
@@ -83,12 +82,31 @@ console.log("this is routineToDelete", routineToDelete);
           ></Route>
           <Route
             path="/myroutines"
-            element={<MyRoutines setRoutineToDelete={setRoutineToDelete} token={token} user={user} setRoutines={setRoutines} routines={routines} myroutines={myroutines} setRoutineToEdit={setRoutineToEdit} />}
+            element={
+              <MyRoutines
+                setRoutineToDelete={setRoutineToDelete}
+                token={token}
+                user={user}
+                setRoutines={setRoutines}
+                routines={routines}
+                myroutines={myroutines}
+                setRoutineToEdit={setRoutineToEdit}
+              />
+            }
           ></Route>
-          <Route 
-          path="/updateroutine" 
-          element={<UpdateRoutine myroutines={myroutines} routines={routines} routineToEdit={routineToEdit} token={token} setRoutines={setRoutines} setMyRoutines={setMyRoutines} />}>
-          </Route>
+          <Route
+            path="/updateroutine"
+            element={
+              <UpdateRoutine
+                myroutines={myroutines}
+                routines={routines}
+                routineToEdit={routineToEdit}
+                token={token}
+                setRoutines={setRoutines}
+                setMyRoutines={setMyRoutines}
+              />
+            }
+          ></Route>
         </Routes>
       </div>
     </div>

@@ -1,10 +1,18 @@
 import React from "react";
 import { useState } from "react";
 import { registerUser } from "../api/auth";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+const eye = <FontAwesomeIcon icon={faEye} />;
 
 const Register = ({ setToken }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordShown, setPasswordShown] = useState(false);
+
+  const togglePasswordVisiblity = () => {
+    setPasswordShown(passwordShown ? false : true);
+  };
 
   return (
     <div id="registerform">
@@ -30,15 +38,18 @@ const Register = ({ setToken }) => {
             placeholder="username"
             onChange={(event) => setUsername(event.target.value)}
           ></input>
+          <label htmlFor="Userreg">Username</label>
           <input
-            type="text"
+            type={passwordShown ? "text" : "password"}
             id="Passwordreg"
             value={password}
             placeholder="password"
             onChange={(event) => setPassword(event.target.value)}
           ></input>
+          <i onClick={togglePasswordVisiblity}>{eye}</i>{" "}
+          <label htmlFor="password">Password</label>
           <button id="buttonreg" type="submit">
-            Submit
+            Create account
           </button>
         </div>
       </form>

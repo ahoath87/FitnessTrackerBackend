@@ -1,9 +1,23 @@
 import React, { useState } from "react";
 import { LoginUser } from "../api/auth";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+const eye = <FontAwesomeIcon icon={faEye} />;
 
 const Login = ({ setToken }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordShown, setPasswordShown] = useState(false);
+  // const [pass, setPass] = useState("");
+
+  const togglePasswordVisiblity = () => {
+    setPasswordShown(passwordShown ? false : true);
+  };
+
+  // const handleChange = (e) => {
+  //   console.log("handle change is triggering", e.target.value);
+  //   setPass(e.target.value);
+  // };
 
   return (
     <div id="loginform">
@@ -15,6 +29,10 @@ const Login = ({ setToken }) => {
             const token = await LoginUser(username, password);
             setToken(token);
             localStorage.setItem("token", token);
+            const redirToMyRoutines = () => {
+              window.location.href = "/myroutines";
+            };
+            redirToMyRoutines();
           } catch (error) {
             console.error(error);
           }
@@ -28,13 +46,18 @@ const Login = ({ setToken }) => {
             placeholder="username"
             onChange={(event) => setUsername(event.target.value)}
           ></input>
+          <label htmlFor="Userreg">Username</label>
           <input
-            type="text"
+            type={passwordShown ? "text" : "password"}
             id="Password-login"
             value={password}
             placeholder="password"
             onChange={(event) => setPassword(event.target.value)}
           ></input>
+          <i onClick={togglePasswordVisiblity}>{eye}</i>{" "}
+          <label htmlFor="password">Password</label>
+          {/* <input onChange={handleChange} />
+          {pass.length > 6 ? <p>Password is ok</p> : <p>Too short</p>} */}
           <button id="button-login" type="submit">
             Submit
           </button>
