@@ -12,12 +12,14 @@ import {
 import { Route, Routes } from "react-router-dom";
 import { publicRoutines } from "./api/Fetch";
 import { fetchMe } from "./api/auth";
+import { myRoutines } from "./api/Fetch";
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [routines, setRoutines] = useState([]);
   const [user, setUser] = useState({});
-
+  const [myroutines, setMyRoutines] = useState([]);
+  const username = user.username;
   useEffect(() => {
     const routines = async () => {
       const allroutines = await publicRoutines();
@@ -36,6 +38,16 @@ function App() {
     }
   }, [token]);
 
+  useEffect(() => {
+    const getRoutines = async () => {
+      const allMyRoutines = await myRoutines(token, username);
+      setMyRoutines(allMyRoutines);
+    };
+    if(user.username) {
+      getRoutines();
+    }
+  }, [user.username]);
+
   return (
     <div>
       <Nav user={user}></Nav>
@@ -53,17 +65,7 @@ function App() {
           ></Route>
           <Route
             path="/myroutines"
-            element={<MyRoutines token={token} user={user} />}
-          ></Route>
-          <Route
-            path="/routineForm"
-            element={
-              <RoutineForm
-                setRoutines={setRoutines}
-                routine={routines}
-                token={token}
-              />
-            }
+            element={<MyRoutines token={token} user={user} setRoutines={setRoutines} routines={routines} myroutines={myroutines} />}
           ></Route>
         </Routes>
       </div>

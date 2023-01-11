@@ -2,29 +2,17 @@ import React, { useState, useEffect } from "react";
 import { myRoutines } from "../api/Fetch";
 import { RoutineForm } from "./index";
 
-const MyRoutines = ({ token, user }) => {
-  const [myroutines, setMyRoutines] = useState([]);
-  const username = user.username;
-  console.log("this is user", user);
-
-  useEffect(() => {
-    const routines = async () => {
-      const allMyRoutines = await myRoutines(token, username);
-      setMyRoutines(allMyRoutines);
-    };
-    if (user.username) {
-      routines();
-    }
-  }, [token]);
-
+const MyRoutines = ({ token, setRoutines, routines, myroutines }) => {
   if (!token) {
     return <div>Please Log in or Register!</div>;
-  } else if ((myroutines.length = 0)) {
+  } else if (myroutines.length === 0) {
     return (
       <div>
         <div>No Routines</div>
         <div>
-          <RoutineForm></RoutineForm>
+          <RoutineForm setRoutines={setRoutines}
+                routines={routines}
+                token={token}></RoutineForm>
         </div>
       </div>
     );
@@ -33,7 +21,9 @@ const MyRoutines = ({ token, user }) => {
       <div id="myroutines">
         <h2>My Routines</h2>
         <div>
-          <RoutineForm> </RoutineForm>
+          <RoutineForm setRoutines={setRoutines}
+                routines={routines}
+                token={token}></RoutineForm>
         </div>
         <div id="routineinfo">
           {myroutines.map((routine) => {

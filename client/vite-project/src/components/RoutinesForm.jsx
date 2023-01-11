@@ -12,7 +12,7 @@ const RoutineForm = ({ token, setRoutines, routines }) => {
       const newRoutine = await createNewRoutine(token, name, goal, isPublic);
       setRoutines([newRoutine, ...routines]);
     } catch (error) {
-      console.error;
+      console.error(error);
     }
   };
   return (
