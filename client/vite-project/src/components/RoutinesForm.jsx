@@ -19,27 +19,34 @@ const RoutineForm = ({ token, setRoutines, routines }) => {
     <div id="routine-form">
       New Routine Form
       <form onSubmit={submitHandler}>
-        <input
-          value={name}
-          type="text"
-          placeholder="Name"
-          onChange={(e) => setName(e.target.value)}
-        ></input>
-        <input
-          value={goal}
-          type="text"
-          placeholder="goal"
-          onChange={(e) => setGoal(e.target.value)}
-        ></input>
-        <label>
+        <div id="routine-form-inputs">
           <input
-            checked={isPublic}
-            type="checkbox"
-            onChange={(e) => setIsPublic(!isPublic)}
+            id="routine-form-name"
+            value={name}
+            type="text"
+            placeholder="Name"
+            onChange={(e) => setName(e.target.value)}
           ></input>
-          Check to make public
-        </label>
-        <button type="submit">submit</button>
+          <input
+            id="routine-form-goal"
+            value={goal}
+            type="text"
+            placeholder="goal"
+            onChange={(e) => setGoal(e.target.value)}
+          ></input>
+          <label>
+            <input
+              id="routine-form-checkbox"
+              checked={isPublic}
+              type="checkbox"
+              onChange={(e) => setIsPublic(!isPublic)}
+            ></input>
+            Check to make public
+          </label>
+          <button id="routine-form-button" type="submit">
+            submit
+          </button>
+        </div>
       </form>
     </div>
   );

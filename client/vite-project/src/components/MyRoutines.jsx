@@ -10,9 +10,11 @@ const MyRoutines = ({ token, setRoutines, routines, myroutines }) => {
       <div>
         <div>No Routines</div>
         <div>
-          <RoutineForm setRoutines={setRoutines}
-                routines={routines}
-                token={token}></RoutineForm>
+          <RoutineForm
+            setRoutines={setRoutines}
+            routines={routines}
+            token={token}
+          ></RoutineForm>
         </div>
       </div>
     );
@@ -21,15 +23,17 @@ const MyRoutines = ({ token, setRoutines, routines, myroutines }) => {
       <div id="myroutines">
         <h2>My Routines</h2>
         <div>
-          <RoutineForm setRoutines={setRoutines}
-                routines={routines}
-                token={token}></RoutineForm>
+          <RoutineForm
+            setRoutines={setRoutines}
+            routines={routines}
+            token={token}
+          ></RoutineForm>
         </div>
         <div id="routineinfo">
           {myroutines.map((routine) => {
             return (
               <div key={routine.id}>
-                <p>Name: {routine.name}</p>
+                <p id="name-myroutines"> Name: {routine.name}</p>
                 <p>Goal: {routine.goal}</p>
                 <p>Author: {routine.creatorName}</p>
                 <div>
