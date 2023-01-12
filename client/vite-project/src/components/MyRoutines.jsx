@@ -3,7 +3,14 @@ import { myRoutines } from "../api/Fetch";
 import { RoutineForm } from "./index";
 import { Link } from "react-router-dom";
 
-const MyRoutines = ({ token, setRoutines, routines, myroutines, setRoutineToEdit, setRoutineToDelete }) => {
+const MyRoutines = ({
+  token,
+  setRoutines,
+  routines,
+  myroutines,
+  setRoutineToEdit,
+  setRoutineToDelete,
+}) => {
   if (!token) {
     return <div>Please Log in or Register!</div>;
   } else if (myroutines.length === 0) {
@@ -35,10 +42,18 @@ const MyRoutines = ({ token, setRoutines, routines, myroutines, setRoutineToEdit
             return (
               <div key={routine.id}>
                 <p id="name-myroutines"> Name: {routine.name}</p>
-                <button id="edit-button" onClick={()=> setRoutineToEdit(routine)}>
+                <button
+                  id="edit-button"
+                  onClick={() => setRoutineToEdit(routine)}
+                >
                   <Link to="/updateroutine">Edit</Link>
                 </button>
-                <button id="DeleteButton" onClick={()=> setRoutineToDelete(routine)}>Delete</button>
+                <button
+                  id="delete-button"
+                  onClick={() => setRoutineToDelete(routine)}
+                >
+                  Delete
+                </button>
                 <p>Goal: {routine.goal}</p>
                 <p>Author: {routine.creatorName}</p>
                 <div>
