@@ -1,3 +1,5 @@
+import { faCropSimple } from "@fortawesome/free-solid-svg-icons";
+
 const API_URL = "http://localhost:5000/api";
 
 export const publicRoutines = async () => {
@@ -101,3 +103,23 @@ export const fetchActivities = async () => {
     console.error(error);
   }
 };
+
+export const attachActivitiesToRoutine = async (routineToAddActivityId, activityId, token) => {
+  try {
+    const response = await fetch(`${API_URL}/routines/${routineToAddActivityId}/activities`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        activityId
+      })
+    });
+    const results = await response.json();
+    console.log("this is results in attachActivitiesToRoutine", results);
+    return results;
+  } catch (error) {
+    console.error(error);
+  }
+}

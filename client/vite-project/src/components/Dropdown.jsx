@@ -7,24 +7,35 @@ const Dropdown = ({
   activities,
   addActivity,
   setAddActivity,
+  checked,
+  setChecked,
+  routineToAddActivity,
+  setRoutineToAddActivity,
+  myRoutine
 }) => {
-  const [checked, setChecked] = useState(false);
+  
 
   const submitHandler = async (e) => {
-    try {
-      e.preventDefault();
-      if (checked) {
-        setAddActivity(activity);
-      }
-    } catch (error) {
-      console.error(error);
+    var updatedList = [...checked];
+    if(event.target.checked) {
+      updatedList = [...checked, event.target.value];
+    } else {
+      updatedList.splice(checked.indexOf(event.target.value), 1);
     }
+    setChecked(updatedList);
+    setRoutineToAddActivity(myRoutine);
+    console.log("this is checked activities", checked)
   };
+
+  const redirMyRoutines = () => {
+    window.location.href = "/myroutines";
+  };
+
   return (
     <div id="dropdown">
       {trigger}
       {open ? (
-        <form onSubmit={submitHandler}>
+        <form>
           <div id="dropdown-activities">
             {activities.map((activity) => {
               return (
@@ -33,17 +44,17 @@ const Dropdown = ({
                   <input
                     id="dropdown-checkbox"
                     type="checkbox"
-                    value={activity.name}
+                    value={activity.id}
                     name={activity.name}
-                    checked={checked}
-                    onChange={(e) => e.preventDefault() && setChecked(!checked)}
+                    onChange={submitHandler}
                   ></input>
                 </div>
               );
             })}
           </div>
-        </form>
-      ) : null}
+          <button id="add-activities" >Add</button>
+        </form>    
+    ) : null}
     </div>
   );
 };

@@ -10,6 +10,10 @@ const RoutineForm = ({ token, setRoutines, routines }) => {
       e.preventDefault();
       const newRoutine = await createNewRoutine(token, name, goal, isPublic);
       setRoutines([newRoutine, ...routines]);
+      const redirMyRoutines = () => {
+        window.location.href = "/myroutines";
+      };
+      redirMyRoutines();
     } catch (error) {
       console.error(error);
     }

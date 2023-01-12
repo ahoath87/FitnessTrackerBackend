@@ -13,6 +13,10 @@ const MyRoutines = ({
   activities,
   addActivity,
   setAddActivity,
+  checked,
+  setChecked,
+  routineToAddActivity,
+  setRoutineToAddActivity
 }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
@@ -81,7 +85,12 @@ const MyRoutines = ({
                   activities={activities}
                   addActivity={addActivity}
                   setAddActivity={setAddActivity}
-                  trigger={<button onClick={handleOpen}>Add Activities</button>}
+                  trigger={<button onClick={handleOpen}>Activities</button>}
+                  checked={checked}
+                  setChecked={setChecked}
+                  routineToAddActivity={routineToAddActivity}
+                  setRoutineToAddActivity={setRoutineToAddActivity}
+                  myRoutine={routine}
                 />
               </div>
             );

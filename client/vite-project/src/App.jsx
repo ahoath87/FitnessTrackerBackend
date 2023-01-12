@@ -17,6 +17,7 @@ import {
   myRoutines,
   fetchDeleteRoutine,
   fetchActivities,
+  attachActivitiesToRoutine,
 } from "./api/Fetch";
 import { fetchMe } from "./api/auth";
 import UpdateRoutine from "./components/UpdateRoutine";
@@ -29,10 +30,11 @@ function App() {
   const [routineToEdit, setRoutineToEdit] = useState({});
   const [routineToDelete, setRoutineToDelete] = useState({});
   const [activities, setActivities] = useState([]);
-  const [addActivity, setAddActivity] = useState({});
+  const [checked, setChecked] = useState([]);
+  const [routineToAddActivity, setRoutineToAddActivity] = useState({}) 
 
   const username = user.username;
-  console.log("this is addActivity", addActivity);
+  console.log("this is addActivity", routineToAddActivity);
   useEffect(() => {
     const routines = async () => {
       const allroutines = await publicRoutines();
@@ -82,6 +84,14 @@ function App() {
     }
   }, [routineToDelete]);
 
+  useEffect(() => {
+    if (checked.length > 0) {
+      const routineToAddActivityId = routineToAddActivity.id
+      checked.forEach(async (activityId) => await attachActivitiesToRoutine(routineToAddActivityId, activityId, token ))
+        }
+      }
+  )
+
   return (
     <div>
       <Nav user={user}></Nav>
@@ -109,8 +119,10 @@ function App() {
                 myroutines={myroutines}
                 setRoutineToEdit={setRoutineToEdit}
                 activities={activities}
-                addActivity={addActivity}
-                setAddActivity={setAddActivity}
+                checked={checked}
+                setChecked={setChecked}
+                routineToAddActivity={routineToAddActivity}
+                setRoutineToAddActivity={setRoutineToAddActivity}
               />
             }
           ></Route>
