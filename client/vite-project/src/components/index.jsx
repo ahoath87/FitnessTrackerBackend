@@ -5,3 +5,5 @@ export { default as Nav } from "./nav";
 export { default as PublicRoutines } from "./PublicRoutines";
 export { default as MyRoutines } from "./MyRoutines";
 export { default as RoutineForm } from "./RoutinesForm";
+export { default as PublicActivities } from "./PublicActivities";
+export { default as Dropdown } from "./Dropdown";

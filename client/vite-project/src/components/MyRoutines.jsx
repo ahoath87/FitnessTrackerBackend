@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { myRoutines } from "../api/Fetch";
-import { RoutineForm } from "./index";
+import { RoutineForm, Dropdown } from "./index";
 import { Link } from "react-router-dom";
 
 const MyRoutines = ({
@@ -10,7 +10,15 @@ const MyRoutines = ({
   myroutines,
   setRoutineToEdit,
   setRoutineToDelete,
+  activities,
+  addActivity,
+  setAddActivity,
 }) => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(!open);
+  };
+
   if (!token) {
     return <div>Please Log in or Register!</div>;
   } else if (myroutines.length === 0) {
@@ -68,6 +76,13 @@ const MyRoutines = ({
                     );
                   })}
                 </div>
+                <Dropdown
+                  open={open}
+                  activities={activities}
+                  addActivity={addActivity}
+                  setAddActivity={setAddActivity}
+                  trigger={<button onClick={handleOpen}>Add Activities</button>}
+                />
               </div>
             );
           })}

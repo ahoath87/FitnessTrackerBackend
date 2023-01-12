@@ -48,7 +48,13 @@ export const createNewRoutine = async (token, name, goal, isPublic) => {
   }
 };
 
-export const patchUpdateRoutine = async (token, routineToEdit, name, goal, isPublic) => {
+export const patchUpdateRoutine = async (
+  token,
+  routineToEdit,
+  name,
+  goal,
+  isPublic
+) => {
   try {
     const response = await fetch(`${API_URL}/routines/${routineToEdit.id}`, {
       method: "PATCH",
@@ -59,16 +65,16 @@ export const patchUpdateRoutine = async (token, routineToEdit, name, goal, isPub
       body: JSON.stringify({
         name,
         goal,
-        isPublic
-      })
+        isPublic,
+      }),
     });
     const updatedRoutine = await response.json();
     console.log("this is updatedRoutine in fetch", updatedRoutine);
-    return updatedRoutine
+    return updatedRoutine;
   } catch (error) {
     console.error(error);
   }
-}
+};
 
 export const fetchDeleteRoutine = async (token, routineToDelete) => {
   try {
@@ -77,11 +83,21 @@ export const fetchDeleteRoutine = async (token, routineToDelete) => {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
-      }
+      },
     });
     const routinesWithoutDeletedOne = await response.json();
-    return routinesWithoutDeletedOne
+    return routinesWithoutDeletedOne;
   } catch (error) {
     console.error(error);
   }
-}
+};
+
+export const fetchActivities = async () => {
+  try {
+    const response = await fetch(`${API_URL}/activities`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};

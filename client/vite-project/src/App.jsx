@@ -8,9 +8,16 @@ import {
   PublicRoutines,
   MyRoutines,
   RoutineForm,
+  PublicActivities,
+  Dropdown,
 } from "./components/index";
 import { Route, Routes } from "react-router-dom";
-import { publicRoutines, myRoutines, fetchDeleteRoutine } from "./api/Fetch";
+import {
+  publicRoutines,
+  myRoutines,
+  fetchDeleteRoutine,
+  fetchActivities,
+} from "./api/Fetch";
 import { fetchMe } from "./api/auth";
 import UpdateRoutine from "./components/UpdateRoutine";
 
@@ -21,9 +28,11 @@ function App() {
   const [myroutines, setMyRoutines] = useState([]);
   const [routineToEdit, setRoutineToEdit] = useState({});
   const [routineToDelete, setRoutineToDelete] = useState({});
+  const [activities, setActivities] = useState([]);
+  const [addActivity, setAddActivity] = useState({});
 
   const username = user.username;
-  console.log("this is routineToDelete", routineToDelete);
+  console.log("this is addActivity", addActivity);
   useEffect(() => {
     const routines = async () => {
       const allroutines = await publicRoutines();
@@ -51,6 +60,14 @@ function App() {
       getRoutines();
     }
   }, [user.username]);
+
+  useEffect(() => {
+    const getActivities = async () => {
+      const allActivities = await fetchActivities();
+      setActivities(allActivities);
+    };
+    getActivities();
+  }, []);
 
   useEffect(() => {
     const getNotDeletedRoutines = async () => {
@@ -91,6 +108,9 @@ function App() {
                 routines={routines}
                 myroutines={myroutines}
                 setRoutineToEdit={setRoutineToEdit}
+                activities={activities}
+                addActivity={addActivity}
+                setAddActivity={setAddActivity}
               />
             }
           ></Route>
@@ -106,6 +126,10 @@ function App() {
                 setMyRoutines={setMyRoutines}
               />
             }
+          ></Route>
+          <Route
+            path="/activities"
+            element={<PublicActivities activities={activities} />}
           ></Route>
         </Routes>
       </div>
