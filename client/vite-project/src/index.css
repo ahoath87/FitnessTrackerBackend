@@ -334,6 +334,26 @@ button:focus-visible {
   margin-left: 1em;
 }
 
+#activities-box{
+  box-sizing: content-box;
+  border-radius: 30px;
+  width: 50%;
+  border: solid #5B6DCD 10px;
+  padding: 5em;
+  height: 50%;
+}
+
+#activity-name{
+  padding: 1em;
+  box-sizing: border-box;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2);
+  border-bottom: 1em black;
+  margin-bottom: 1em;
+  font-family: 'Libre Baskerville', serif;
+}
+
+
+
 
 
 

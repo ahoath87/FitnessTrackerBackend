@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { PublicActivities } from "./index";
 
 const Dropdown = ({
-  open,
-  trigger,
   activities,
   addActivity,
   setAddActivity,
@@ -11,20 +9,24 @@ const Dropdown = ({
   setChecked,
   routineToAddActivity,
   setRoutineToAddActivity,
-  myRoutine
+  myRoutine,
 }) => {
-  
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(!open);
+  };
 
   const submitHandler = async (e) => {
     var updatedList = [...checked];
-    if(event.target.checked) {
+    if (event.target.checked) {
       updatedList = [...checked, event.target.value];
     } else {
       updatedList.splice(checked.indexOf(event.target.value), 1);
     }
     setChecked(updatedList);
     setRoutineToAddActivity(myRoutine);
-    console.log("this is checked activities", checked)
+    console.log("this is checked activities", checked);
   };
 
   const redirMyRoutines = () => {
@@ -33,7 +35,7 @@ const Dropdown = ({
 
   return (
     <div id="dropdown">
-      {trigger}
+      <button onClick={handleOpen}>Activities</button>
       {open ? (
         <form>
           <div id="dropdown-activities">
@@ -52,9 +54,9 @@ const Dropdown = ({
               );
             })}
           </div>
-          <button id="add-activities" >Add</button>
-        </form>    
-    ) : null}
+          <button id="add-activities">Add</button>
+        </form>
+      ) : null}
     </div>
   );
 };

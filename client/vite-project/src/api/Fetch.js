@@ -104,22 +104,58 @@ export const fetchActivities = async () => {
   }
 };
 
-export const attachActivitiesToRoutine = async (routineToAddActivityId, activityId, token) => {
+export const attachActivitiesToRoutine = async (
+  routineToAddActivityId,
+  activityId,
+  token
+) => {
   try {
-    const response = await fetch(`${API_URL}/routines/${routineToAddActivityId}/activities`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        activityId
-      })
-    });
+    const response = await fetch(
+      `${API_URL}/routines/${routineToAddActivityId}/activities`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          activityId,
+        }),
+      }
+    );
     const results = await response.json();
     console.log("this is results in attachActivitiesToRoutine", results);
     return results;
   } catch (error) {
     console.error(error);
   }
-}
+};
+
+export const updateCountAndDuration = async (
+  token,
+  routineActivityId,
+  count,
+  duration
+) => {
+  try {
+    const response = await fetch(
+      `${API_URL}/routine_activities/${routineActivityId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          count,
+          duration,
+        }),
+      }
+    );
+    const results = await response.json();
+    console.log("this is results in update count", results);
+    return results;
+  } catch (error) {
+    console.error(error);
+  }
+};

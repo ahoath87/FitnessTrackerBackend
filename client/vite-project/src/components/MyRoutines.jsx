@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { myRoutines } from "../api/Fetch";
 import { RoutineForm, Dropdown } from "./index";
 import { Link } from "react-router-dom";
+import UpdateMyActivities from "./UpdateMyActivities";
 
 const MyRoutines = ({
   token,
@@ -16,12 +17,9 @@ const MyRoutines = ({
   checked,
   setChecked,
   routineToAddActivity,
-  setRoutineToAddActivity
+  setRoutineToAddActivity,
 }) => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => {
-    setOpen(!open);
-  };
+  const [routineActivityId, setRoutineActivityId] = useState(0);
 
   if (!token) {
     return <div>Please Log in or Register!</div>;
@@ -76,16 +74,20 @@ const MyRoutines = ({
                         <p>Description: {activity.description}</p>
                         <p>Time: {activity.duration}</p>
                         <p>Count: {activity.count}</p>
+                        <UpdateMyActivities
+                          setRoutineActivityId={setRoutineActivityId}
+                          token={token}
+                          activity={activity}
+                          routineActivityId={routineActivityId}
+                        ></UpdateMyActivities>
                       </div>
                     );
                   })}
                 </div>
                 <Dropdown
-                  open={open}
                   activities={activities}
                   addActivity={addActivity}
                   setAddActivity={setAddActivity}
-                  trigger={<button onClick={handleOpen}>Activities</button>}
                   checked={checked}
                   setChecked={setChecked}
                   routineToAddActivity={routineToAddActivity}
