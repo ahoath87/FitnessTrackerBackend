@@ -141,7 +141,7 @@ function App() {
           ></Route>
           <Route
             path="/activities"
-            element={<PublicActivities activities={activities} />}
+            element={<PublicActivities token={token} activities={activities} />}
           ></Route>
         </Routes>
       </div>

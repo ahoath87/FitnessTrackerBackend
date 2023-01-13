@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { myRoutines } from "../api/Fetch";
+import { removeActivityfromRoutine } from "../api/Fetch";
 import { RoutineForm, Dropdown } from "./index";
 import { Link } from "react-router-dom";
 import UpdateMyActivities from "./UpdateMyActivities";

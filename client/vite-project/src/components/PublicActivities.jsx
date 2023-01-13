@@ -1,9 +1,11 @@
 import React from "react";
+import ActivityForm from "./ActivityForm";
 
-const PublicActivities = ({ activities }) => {
+const PublicActivities = ({ token, activities }) => {
   return (
     <div id="activities">
       <h2 id="activitieslabel">Activities</h2>
+      <ActivityForm token={token} activities={activities}></ActivityForm>
       <div id="activities-box">
         {activities.map((activity) => {
           return (

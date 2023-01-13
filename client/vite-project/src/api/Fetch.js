@@ -137,6 +137,8 @@ export const updateCountAndDuration = async (
   count,
   duration
 ) => {
+  console.log("this is token", token)
+  console.log("this is routineActivityId in updateCountandDUration", routineActivityId)
   try {
     const response = await fetch(
       `${API_URL}/routine_activities/${routineActivityId}`,
@@ -159,3 +161,41 @@ export const updateCountAndDuration = async (
     console.error(error);
   }
 };
+
+export const removeActivityfromRoutine = async (token, routineActivityId) => {
+  try {
+    const response = await fetch(`${API_URL}/routine_activities/${routineActivityId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    })
+    const results = await response.json();
+    console.log("you deleted results", results);
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const createNewActivity = async (token, name, description) => {
+  try {
+    const response = await fetch(`${API_URL}/activities`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify (
+        {
+          name,
+          description,
+        }
+      ) 
+    })
+    const results = await response.json();
+    return results
+  } catch (error) {
+    console.error(error);
+  }
+}

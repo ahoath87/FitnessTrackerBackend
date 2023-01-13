@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { updateCountAndDuration } from "../api/Fetch";
+import { updateCountAndDuration, removeActivityfromRoutine } from "../api/Fetch";
 
 const UpdateMyActivities = ({
   token,
-  routineActivityId,
+  //routineActivityId,
 
   setRoutineActivityId,
   activity,
@@ -15,10 +15,13 @@ const UpdateMyActivities = ({
   const handleOpenDropdown = () => {
     setOpenDropdown(!openDropdown);
   };
+  
+  const redirMyRoutines = () => {
+    window.location.href = "/myroutines";
+  };
 
-  if (openDropdown) {
-    setRoutineActivityId(activity.routineActivityId);
-  }
+  console.log("this is activity", activity);
+  const routineActivityId = activity.routineActivityId
 
   return (
     <div id="updateDropdown">
@@ -31,10 +34,11 @@ const UpdateMyActivities = ({
               console.log("this is routineActivityId", routineActivityId);
               await updateCountAndDuration(
                 token,
+                routineActivityId,
                 count,
                 duration,
-                routineActivityId
               );
+              redirMyRoutines();
             } catch (error) {
               console.error(error);
             }
@@ -61,6 +65,7 @@ const UpdateMyActivities = ({
           </div>
         </form>
       ) : null}
+      <button id="activity-delete" onClick={()=>removeActivityfromRoutine(token, routineActivityId) && redirMyRoutines()}>Remove Activity</button>
     </div>
   );
 };
