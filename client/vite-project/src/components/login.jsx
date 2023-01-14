@@ -8,6 +8,7 @@ const Login = ({ setToken }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordShown, setPasswordShown] = useState(false);
+  // const [error, setError] = useState(null)
   // const [pass, setPass] = useState("");
 
   const togglePasswordVisiblity = () => {
@@ -57,7 +58,7 @@ const Login = ({ setToken }) => {
           <i onClick={togglePasswordVisiblity}>{eye}</i>{" "}
           <label htmlFor="password">Password</label>
           {/* <input onChange={handleChange} />
-          {pass.length > 6 ? <p>Password is ok</p> : <p>Too short</p>} */}
+          {pass.length > 8 ? <p>Password is ok</p> : <p>Too short</p>} */}
           <button id="button-login" type="submit">
             Submit
           </button>

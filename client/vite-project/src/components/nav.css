@@ -3,6 +3,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     margin-left: 0em;
     background-image: linear-gradient(to left, #607395, #155e9d);
 }
