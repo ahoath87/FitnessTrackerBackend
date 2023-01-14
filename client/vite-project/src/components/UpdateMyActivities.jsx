@@ -25,7 +25,7 @@ const UpdateMyActivities = ({
 
   return (
     <div id="updateDropdown">
-      <button onClick={handleOpenDropdown}>Update Activities</button>
+      <button id="update-myactivities-button" onClick={handleOpenDropdown}>Update Activities</button>
       {openDropdown ? (
         <form
           onSubmit={async (event) => {

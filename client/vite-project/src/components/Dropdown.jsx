@@ -35,7 +35,7 @@ const Dropdown = ({
 
   return (
     <div id="dropdown">
-      <button onClick={handleOpen}>Activities</button>
+      <button id="myactivities-button" onClick={handleOpen}>Activities</button>
       {open ? (
         <form>
           <div id="dropdown-activities">

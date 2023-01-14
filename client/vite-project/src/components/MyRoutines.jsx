@@ -40,6 +40,7 @@ const MyRoutines = ({
     return (
       <div id="myroutines">
         <h2>My Routines</h2>
+        <div id="form-and-myroutines">
         <div>
           <RoutineForm
             setRoutines={setRoutines}
@@ -50,7 +51,7 @@ const MyRoutines = ({
         <div id="routineinfo">
           {myroutines.map((routine) => {
             return (
-              <div key={routine.id}>
+              <div id="individual-myroutine" key={routine.id}>
                 <p id="name-myroutines"> Name: {routine.name}</p>
                 <button
                   id="edit-button"
@@ -70,7 +71,7 @@ const MyRoutines = ({
                   {routine.activities.map((activity) => {
                     return (
                       <div key={activity.id}>
-                        <p>Activity: {activity.name}</p>
+                        <p id="myactivity-name">Activity: {activity.name}</p>
                         <p>Description: {activity.description}</p>
                         <p>Time: {activity.duration}</p>
                         <p>Count: {activity.count}</p>
@@ -97,6 +98,7 @@ const MyRoutines = ({
               </div>
             );
           })}
+        </div>
         </div>
       </div>
     );

@@ -20,9 +20,10 @@ const ActivityForm = ({ token }) => {
     }
 
     return (
-        <div>
-            <form onSubmit={submitHandler}>
-                <div>
+        <div >
+            <form id="activity-form" onSubmit={submitHandler}>
+                <div id="activity-form-inputs">
+                    <h2> New Activity Form</h2>
                     <input
                         id="activity-form-name"
                         value={name}

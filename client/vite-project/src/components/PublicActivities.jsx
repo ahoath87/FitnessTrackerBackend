@@ -5,6 +5,7 @@ const PublicActivities = ({ token, activities }) => {
   return (
     <div id="activities">
       <h2 id="activitieslabel">Activities</h2>
+      <div id="form-and-activities">
       <ActivityForm token={token} activities={activities}></ActivityForm>
       <div id="activities-box">
         {activities.map((activity) => {
@@ -15,6 +16,7 @@ const PublicActivities = ({ token, activities }) => {
             </div>
           );
         })}
+      </div>
       </div>
     </div>
   );

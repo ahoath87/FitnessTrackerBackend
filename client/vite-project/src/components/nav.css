@@ -10,6 +10,7 @@
 h1{
     margin-left: 2em;
     color: #dbd8e3;
+    margin-right: 2em;
 }
 
 #links {
@@ -27,6 +28,7 @@ h1{
     align-items: center;
     margin-right: 25em;
     color: #dbd8e3;
+    font-size: 20px;
 }
 
 #Home-link{

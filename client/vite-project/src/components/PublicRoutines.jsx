@@ -7,7 +7,7 @@ const PublicRoutines = ({ routines }) => {
       <div id="routines">
         {routines.map((routine) => {
           return (
-            <div key={routine.id}>
+            <div id="individual-routine" key={routine.id}>
               <p id="name-publicroutines">Name: {routine.name}</p>
               <p>Goal: {routine.goal}</p>
               <p>Author: {routine.creatorName}</p>
@@ -16,7 +16,7 @@ const PublicRoutines = ({ routines }) => {
                 {routine.activities.map((activity) => {
                   return (
                     <div key={activity.id}>
-                      <p>Activity: {activity.name}</p>
+                      <p id="activity-name">Activity: {activity.name}</p>
                       <p>Description: {activity.description}</p>
                       <p>Time: {activity.duration}</p>
                       <p>Count: {activity.count}</p>
