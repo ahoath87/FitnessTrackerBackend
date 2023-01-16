@@ -5,6 +5,7 @@ import "./nav.css";
 const Nav = ({ user }) => {
   const logout = () => {
     localStorage.clear();
+    window.location.href = "/";
   };
 
   return (
@@ -28,7 +29,7 @@ const Nav = ({ user }) => {
           <Link to="/myroutines">My Routines</Link>
         </div>
         <div id="activities-link">
-          <Link to="/activities">My Activities</Link>
+          <Link to="/activities">Activities</Link>
         </div>
         <button id="log-out" onClick={logout}>
           Log Out

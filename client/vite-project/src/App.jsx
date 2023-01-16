@@ -31,7 +31,7 @@ function App() {
   const [routineToDelete, setRoutineToDelete] = useState({});
   const [activities, setActivities] = useState([]);
   const [checked, setChecked] = useState([]);
-  const [routineToAddActivity, setRoutineToAddActivity] = useState({}) 
+  const [routineToAddActivity, setRoutineToAddActivity] = useState({});
 
   const username = user.username;
   console.log("this is addActivity", routineToAddActivity);
@@ -86,18 +86,24 @@ function App() {
 
   useEffect(() => {
     if (checked.length > 0) {
-      const routineToAddActivityId = routineToAddActivity.id
-      checked.forEach(async (activityId) => await attachActivitiesToRoutine(routineToAddActivityId, activityId, token ))
-        }
-      }
-  )
+      const routineToAddActivityId = routineToAddActivity.id;
+      checked.forEach(
+        async (activityId) =>
+          await attachActivitiesToRoutine(
+            routineToAddActivityId,
+            activityId,
+            token
+          )
+      );
+    }
+  });
 
   return (
     <div>
       <Nav user={user}></Nav>
       <div id="MainPages">
         <Routes>
-          <Route path="/" element={<Home />}></Route>
+          <Route path="/" element={<Home token={token} />}></Route>
           <Route
             path="/register"
             element={<Register setToken={setToken} />}

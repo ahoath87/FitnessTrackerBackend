@@ -47,7 +47,7 @@ const Register = ({ setToken }) => {
             onChange={(event) => setPassword(event.target.value)}
           ></input>
           <i onClick={togglePasswordVisiblity}>{eye}</i>{" "}
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">Password - must be 8 characters</label>
           <button id="buttonreg" type="submit">
             Create account
           </button>

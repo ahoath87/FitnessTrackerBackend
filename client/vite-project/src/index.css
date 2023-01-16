@@ -49,6 +49,7 @@ a:hover {
   padding-left: 5em;
   padding-top: 4em;
   padding-bottom: 8em;
+  
 }
 
 h1 {
@@ -124,6 +125,8 @@ button:focus-visible {
   margin-top: 1em;
 }
 
+
+
 #loginform{
   margin-top: 10em;
   background: hsl(213deg 85% 97%);
@@ -178,20 +181,26 @@ button:focus-visible {
   box-sizing: content-box;
   border-radius: 30px;
   width: 100%;
-  border: solid #5B6DCD 10px;
+  border: solid #5b6ccd6f 10px;
   padding: 5em;
+  margin-top: 5em;
+  
  
+}
+#my-routines-page{
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  size: 30px;
 }
 
 #form-and-myroutines {
   display: flex;
-  align-items: flex-start;
   gap: 5em;
   justify-content: space-evenly;
 }
 
 #name-publicroutines{
   font-size: 40px;
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
 }
 
 #routinelabel{
@@ -208,6 +217,10 @@ button:focus-visible {
   padding-left: 5em;
   padding-top: 4em;
   padding-bottom: 8em;
+  position: sticky;
+ top: 0;
+ align-self: flex-start;
+
 }
 #routine-form-inputs{
   display: flex;
@@ -232,6 +245,7 @@ button:focus-visible {
   border-radius: 20px;
   color: hsl(0deg 0% 30%);
   margin-top: 1em;
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
 }
 
 #routine-form-checkbox{
@@ -251,7 +265,7 @@ button:focus-visible {
   box-sizing: content-box;
   border-radius: 30px;
   width: 100%;
-  border: solid #5B6DCD 10px;
+  border: solid #5b6ccd6f 10px;
   padding: 5em;
   margin-top: 5em;
 }
@@ -280,6 +294,7 @@ button:focus-visible {
   font-size: 40px;
   font-weight: bold;
   margin: 20px;
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
 }
 
 #updateroutine-form{
@@ -331,6 +346,7 @@ button:focus-visible {
   border-radius: 30px;
   font-weight: 600;
   margin-top: 1em;
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
 }
 
 #edit-button{
@@ -340,6 +356,7 @@ button:focus-visible {
   border-radius: 30px;
   font-weight: 600;
   margin-top: 1em;
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
 }
 
 #delete-button{
@@ -350,11 +367,13 @@ button:focus-visible {
   font-weight: 600;
   margin-top: 1em;
   margin-left: 1em;
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
 }
 
 
 #myactivity-name{
   font-size: 28px;
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
 }
 
 #update-myactivities-button{
@@ -364,6 +383,7 @@ button:focus-visible {
   border-radius: 30px;
   font-weight: 600;
   margin: .5em;
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
 }
 
 #activity-delete{
@@ -373,6 +393,7 @@ button:focus-visible {
   border-radius: 30px;
   font-weight: 600;
   margin: .5em;
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   
 }
 
@@ -383,15 +404,17 @@ button:focus-visible {
   border-radius: 30px;
   font-weight: 600;
   margin: .5em;
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
 }
 
 #activities-box{
   box-sizing: content-box;
   border-radius: 30px;
   width: 50%;
-  border: solid #5B6DCD 10px;
+  border: solid #5b6ccd6f 10px;
   padding: 5em;
   margin-top: 5em;
+  
 }
 
 #activity-details {
@@ -406,6 +429,7 @@ button:focus-visible {
 
 #activity-name{
   font-size: 25px;
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
 }
 
 #activity-form{
@@ -417,6 +441,9 @@ button:focus-visible {
   padding-left: 5em;
   padding-top: 4em;
   padding-bottom: 4em;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
 }
 
 
@@ -433,6 +460,7 @@ button:focus-visible {
   border-radius: 20px;
   color: hsl(0deg 0% 30%);
   margin-top: 1em;
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
 }
 
 #activity-form-description{
@@ -443,6 +471,7 @@ button:focus-visible {
   border-radius: 20px;
   color: hsl(0deg 0% 30%);
   margin-top: 1em;
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
 }
 
 #activity-form-button{
